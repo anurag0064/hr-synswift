@@ -43,7 +43,7 @@ const Navbar = () => {
             </div>
 
             <div className="col-3 d-flex mb justify-content-end">
-              {user ? (
+            
                 <div className="dropdown me-3 ">
                   <button className="btn dropdown-toggle btn btn-outline-primary mt-3 rounded-pill me-3" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     {user.name}
@@ -56,11 +56,6 @@ const Navbar = () => {
                     <li><button className="dropdown-item" onClick={handleLogout}>Log Out</button></li>
                   </ul>
                 </div>
-              ) : (
-                <a href="/Login">
-                  
-                </a>
-              )}
             </div>
           </div>
         </div>
