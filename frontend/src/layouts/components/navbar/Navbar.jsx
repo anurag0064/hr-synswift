@@ -5,15 +5,15 @@ import axios from 'axios';
 const Navbar = () => {
   const { user, userLogout } = useContext(userContext);
 
-  const handleLogout = async () => {
-    try {
-      await axios.post("http://127.0.0.1:3000/logout");
-      userLogout();
-      window.location.href = '/';
-    } catch (error) {
-      console.error("Logout failed: ", error);
-    }
-  };
+  // const handleLogout = async () => {
+  //   try {
+  //     await axios.post("http://127.0.0.1:3000/logout");
+  //     userLogout();
+  //     window.location.href = '/';
+  //   } catch (error) {
+  //     console.error("Logout failed: ", error);
+  //   }
+  // };
 
   return (
     <>
@@ -53,7 +53,7 @@ const Navbar = () => {
                     <li><a className="dropdown-item" href="#">Another action</a></li>
                     <li><a className="dropdown-item" href="#">Something else here</a></li>
                     <li><hr className="dropdown-divider" /></li>
-                    <li><button className="dropdown-item" onClick={handleLogout}>Log Out</button></li>
+                    <li><button className="dropdown-item">Log Out</button></li>
                   </ul>
                 </div>
             </div>
