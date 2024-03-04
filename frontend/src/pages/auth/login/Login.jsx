@@ -30,8 +30,9 @@ const Login = () => {
             });
 
             const { token } = response.data;
-
             localStorage.setItem('token', token);
+            
+           
             handleLogin(response.data);
             
             window.location.href = '/admindashboard';
@@ -96,3 +97,4 @@ const Login = () => {
 };
 
 export default Login;
+

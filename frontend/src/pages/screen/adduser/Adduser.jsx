@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Navbar from '../../../layouts/components/Navbar/Navbar';
 import Sidebar2 from '../dashboard/admindashboard/components/sidebar/Sidebar';
+import axios from 'axios';
+import { API_URL } from '../../../constants/common';
 
 const AddUser = () => {
     const [formData, setFormData] = useState({
@@ -25,53 +27,25 @@ const AddUser = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const newErrors = {};
-        if (!formData.name.trim()) {
-            newErrors.name = 'Name is required';
-        }
-        if (!formData.email.trim()) {
-            newErrors.email = 'Email is required';
-        }
-        if (!formData.phoneNumber.trim()) {
-            newErrors.phoneNumber = 'Phone Number is required';
-        }
-        if (!formData.location.trim()) {
-            newErrors.location = 'Location is required';
-        }
-        if (!formData.gender.trim()) {
-            newErrors.gender = 'Gender is required';
-        }
-        if (!formData.maritalStatus.trim()) {
-            newErrors.maritalStatus = 'Marital Status is required';
-        }
-
-        setErrors(newErrors);
-
-        if (Object.keys(newErrors).length === 0) {
-            try {
-                const response = await fetch('http://localhost:3000/api/users', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
+        try {
+            const response = await axios.post(`${API_URL}/api/users`, formData);
+            if (response.status === 201) {
+                console.log('User added successfully');
+                setFormData({
+                    name: '',
+                    email: '',
+                    phoneNumber: '',
+                    location: '',
+                    gender: '',
+                    maritalStatus: '',
                 });
-                if (response.ok) {
-                    console.log('User added successfully');
-                    setFormData({
-                        name: '',
-                        email: '',
-                        phoneNumber: '',
-                        location: '',
-                        gender: '',
-                        maritalStatus: '',
-                    });
-                    setErrors({});
-                } else {
-                    console.error('Failed to add user');
-                }
-            } catch (error) {
-                console.error('Error adding user:', error);
+                setErrors({});
+            }
+        } catch (error) {
+            if (error.response && error.response.status === 400) {
+                setErrors(error.response.data.errors);
+            } else {
+                console.error('Failed to add user:', error);
             }
         }
     };
@@ -123,8 +97,7 @@ const AddUser = () => {
                                         <label htmlFor="maritalStatus" className="form-label">Marital Status</label>
                                         <select name="maritalStatus" id="maritalStatus" className="form-select" value={formData.maritalStatus} onChange={handleChange}>
                                             <option value="">Select Marital Status</option>
-                                            <option value="single">Single</option>
-                                            <option value="married">Married</option>
+                                            <option value="single">Single</option>                                             <option value="married">Married</option>
                                         </select>
                                         {errors.maritalStatus && <div className="text-danger">{errors.maritalStatus}</div>}
                                     </div>
@@ -140,4 +113,5 @@ const AddUser = () => {
 };
 
 export default AddUser;
+
 

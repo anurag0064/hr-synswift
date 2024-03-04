@@ -46,7 +46,7 @@ const Navbar = () => {
             
                 <div className="dropdown me-3 ">
                   <button className="btn dropdown-toggle btn btn-outline-primary mt-3 rounded-pill me-3" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    {user.name}
+                   
                   </button>
                   <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a className="dropdown-item" href="#">Action</a></li>

@@ -90,10 +90,16 @@ app.post('/leavelist', async (req, res) => {
 
 
 app.post('/api/users', (req, res) => {
-  const { name, email, phoneNumber, location } = req.body;
-  console.log('Received user data:', { name, email, phoneNumber, location });
-  res.sendStatus(200);
+  try {
+    const { name, email, phoneNumber, location, gender, maritalStatus } = req.body;
+    console.log('Received user data:', { name, email, phoneNumber, location, gender, maritalStatus });
+    res.status(200).send('User data received successfully');
+  } catch (error) {
+    console.error('Error processing user data:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
+
 
 
 app.post('/forgot-password', async (req, res) => {
