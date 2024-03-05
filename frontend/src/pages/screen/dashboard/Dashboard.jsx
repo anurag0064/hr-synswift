@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Userdashboard from './userdashboard/Userdashboard';
-import Admindashboard from './admindashboard/Admindashboard';
 
 const Dashboard = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -17,23 +15,33 @@ const Dashboard = () => {
 
     return (
         <>
-                <div className="dashboard-content ms-4">
-                    {isLoggedIn ? (
-                        <>
-                            {userType === 'admin' ? (
-                                <Admindashboard />
-                            ) : (
-                                <Userdashboard />
-                            )}
-                        </>
-                    ) : (
-                        <h1>Dashboard</h1>
-                    )}
-                </div>
+            <div className="dashboard-content ms-4">
+                {isLoggedIn ? (
+                    <div>
+                        <h1>Welcome to Dashboard</h1>
+                        {userType === 'admin' ? (
+                            <div>
+                                
+                                <h2>Admin Dashboard</h2>
+                              
+                            </div>
+                        ) : (
+                            <div>
+                            
+                                <h2>User Dashboard</h2>
+                             
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <h1>Please log in to view the dashboard</h1>
+                )}
+            </div>
         </>
     );
 }
 
 export default Dashboard;
+
 
 
