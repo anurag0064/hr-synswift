@@ -9,8 +9,8 @@ const LeaveList = () => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        fetchLeaveList(); // Fetch leave list data when component mounts
-    }, []); // Empty dependency array ensures it only runs once on mount
+        fetchLeaveList(); 
+    }, []); 
 
     const fetchLeaveList = async () => {
         try {
@@ -18,7 +18,7 @@ const LeaveList = () => {
             setLeaveList(response.data);
         } catch (error) {
             console.error('Error fetching leave list:', error);
-            setError('Error fetching leave list. Please try again later.');
+            
         }
     };
 
@@ -34,6 +34,9 @@ const LeaveList = () => {
                             <li className="breadcrumb-item">
                                 <a href="/dashboard">Dashboard</a>
                             </li>
+                            
+                           
+
                             <li className="breadcrumb-item active" aria-current="page">Leave</li>
                         </ol>
                     </nav>
@@ -42,7 +45,7 @@ const LeaveList = () => {
                         <table className="table pmd-table table-hover pmd-table-card">
                             <thead className="thead-light">
                                 <tr>
-                                    <th>Employee</th>
+                                    <th>Employee Id</th>
                                     <th>Leave Type</th>
                                     <th>Half Day</th>
                                     <th>Start Date</th>

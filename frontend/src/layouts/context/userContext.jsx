@@ -1,8 +1,6 @@
-
 import React, { createContext, useState } from 'react';
 
 const userContext = createContext();
-
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -10,15 +8,13 @@ const UserProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
-
   const userLogin = ({ user, token }) => {
     setUser({ user, token });
   };
 
   const adminLogin = ({ admin, token }) => {
-    setUser({ admin, token });
+    setUser({ admin, token }); 
   };
-
 
   const handleLogin = async (resData) => {
     setLoading(true);
@@ -44,12 +40,11 @@ const UserProvider = ({ children }) => {
     setLoading(false);
   };
 
-
   const userLogout = () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('admin'); 
     setUser(null);
   };
-
 
   const contextValue = {
     user,
@@ -67,7 +62,6 @@ const UserProvider = ({ children }) => {
   );
 };
 
-
 const useUser = () => {
   const context = React.useContext(userContext);
   if (context === undefined) {
@@ -76,4 +70,4 @@ const useUser = () => {
   return context;
 };
 
-export { UserProvider, useUser, userContext }; 
+export { UserProvider, useUser, userContext };

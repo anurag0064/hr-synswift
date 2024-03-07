@@ -7,6 +7,7 @@ const User = require('./models/user');
 const ApplyLeave = require('./models/applyleave');
 const app = express();
 const PORT = process.env.PORT || 3000;
+
 mongoose.connect("mongodb+srv://anuragsaini9223:anuragsaini9223@cluster0.quprsu5.mongodb.net/");
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -23,7 +24,6 @@ app.use(
     parameterLimit: 1000000,
   })
 );
-
 
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
@@ -49,7 +49,6 @@ app.post('/login', async (req, res) => {
 });
 
 app.post('/logout', (req, res) => {
-  
   req.session.destroy((err) => {
     if (err) {
       console.error('Error destroying session:', err);
@@ -77,7 +76,6 @@ app.post('/applyLeave', async (req, res) => {
   }
 });
 
-
 app.post('/leavelist', async (req, res) => {
   try {
     const leaveList = await ApplyLeave.find().exec();
@@ -88,23 +86,30 @@ app.post('/leavelist', async (req, res) => {
   }
 });
 
-
-app.post('/api/users', (req, res) => {
+app.post('/adduser', async (req, res) => {
   try {
     const { name, email, phoneNumber, location, gender, maritalStatus } = req.body;
-    console.log('Received user data:', { name, email, phoneNumber, location, gender, maritalStatus });
-    res.status(200).send('User data received successfully');
+    const user = new User({
+      name,
+      email,
+      phoneNumber,
+      location,
+      gender,
+      maritalStatus,
+    });
+
+    await user.save();
+
+    res.status(201).json({ success: true, message: 'User added successfully', user });
   } catch (error) {
-    console.error('Error processing user data:', error);
-    res.status(500).send('Internal Server Error');
+    console.error('Error adding user:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
 
-
-
 app.post('/forgot-password', async (req, res) => {
   const { email } = req.body;
-  
+
   try {
     const user = await User.findOne({ email }).exec();
     if (!user) {
@@ -117,9 +122,6 @@ app.post('/forgot-password', async (req, res) => {
   }
 });
 
-
-
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-

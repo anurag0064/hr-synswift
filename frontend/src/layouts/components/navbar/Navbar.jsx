@@ -3,7 +3,7 @@ import { userContext } from '../../context/Usercontext';
 import axios from 'axios';
 
 const Navbar = () => {
-  const { user, userLogout } = useContext(userContext);
+  // const { user, userLogout } = useContext(userContext);
 
   // const handleLogout = async () => {
   //   try {
@@ -46,14 +46,14 @@ const Navbar = () => {
             
                 <div className="dropdown me-3 ">
                   <button className="btn dropdown-toggle btn btn-outline-primary mt-3 rounded-pill me-3" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                   
+                  
                   </button>
                   <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a className="dropdown-item" href="#">Action</a></li>
                     <li><a className="dropdown-item" href="#">Another action</a></li>
                     <li><a className="dropdown-item" href="#">Something else here</a></li>
                     <li><hr className="dropdown-divider" /></li>
-                    <li><button className="dropdown-item">Log Out</button></li>
+                    <li><button className="dropdown-item" >Log Out</button></li>
                   </ul>
                 </div>
             </div>
